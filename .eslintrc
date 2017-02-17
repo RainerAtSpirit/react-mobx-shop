@@ -1,0 +1,11 @@
+{
+  "extends": ["standard", "standard-react"],
+  "parser": "babel-eslint",
+  "rules": {
+    "react/jsx-indent-props": "off", // Disabled to prevent error with webstorm Ctrl+Alt+L autoformat when wrapping
+    "react/jsx-indent": "off" // Disabled to prevent error with webstorm Ctrl+Alt+L autoformat when wrapping
+  },
+  "env": {
+    "jest": true
+  }
+}
