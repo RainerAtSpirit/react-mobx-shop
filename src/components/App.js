@@ -33,9 +33,9 @@ class App extends Component {
       case 'books':
         return <Books bookStore={this.props.bookStore} openBookPage={this.openBookPage} />
       case 'book':
-        return <BookDetails book={this.state.selectedBook} />
+        return <BookDetails book={this.state.selectedBook} cartStore={this.props.cardStore} />
       case 'cart':
-        return <Cart />
+        return <Cart cartStore={this.props.cardStore} />
       default:
         return 'Sry, not found'
     }
@@ -61,6 +61,11 @@ class App extends Component {
       selectedBook: null
     })
   }
+}
+
+App.propTypes = {
+  bookStore: React.PropTypes.any,
+  cardStore: React.PropTypes.any
 }
 
 const AppHeader = () => (

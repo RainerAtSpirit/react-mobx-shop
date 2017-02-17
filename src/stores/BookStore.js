@@ -4,14 +4,14 @@ import Book from './Book'
 export default class BookStore {
   @observable isLoading = false
   books = observable.map()
+  fetch
 
   constructor (fetch) {
     this.fetch = fetch
   }
 
   @computed get sortedBooks () {
-    const books = this.books.values()
-    return books.sort((a, b) =>
+    return this.books.values().sort((a, b) =>
       a.name > b.name
         ? 1
         : a.name === b.name
