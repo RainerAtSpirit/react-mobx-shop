@@ -2,10 +2,10 @@ import React from 'react'
 import { observer, inject } from 'mobx-react'
 import './Cart.css'
 
-const Cart = inject("cartStore")(observer(({cartStore}) => (
-  <section className="Page-cart">
+const Cart = inject('cartStore')(observer(({cartStore}) => (
+  <section className='Page-cart'>
     <h2>Your cart</h2>
-    <section className="Page-cart-items">
+    <section className='Page-cart-items'>
       {cartStore.entries.map(entry =>
         <CartEntry key={entry.book.id} entry={entry} />
       )}
@@ -18,7 +18,7 @@ const Cart = inject("cartStore")(observer(({cartStore}) => (
       onClick={() => {
         const total = cartStore.total
         cartStore.clear()
-        alert(`Bought books for ${total} € !`)
+        window.alert(`Bought books for ${total} € !`)
       }}
     >
       Submit order
@@ -27,10 +27,10 @@ const Cart = inject("cartStore")(observer(({cartStore}) => (
 )))
 
 const CartEntry = observer(({entry}) => (
-  <div className="Page-cart-item">
-    <p><a href="#">{entry.book.name}</a></p>
+  <div className='Page-cart-item'>
+    <p><a href='#'>{entry.book.name}</a></p>
     {!entry.book.isAvailable && <p><b>Not available anymore</b></p>}
-    <div className="Page-cart-item-details">
+    <div className='Page-cart-item-details'>
       <p>Amount:
         <input value={entry.quantity} onChange={updateEntryQuantity.bind(entry)} />
         total: <b>{entry.price} €</b>
@@ -39,7 +39,7 @@ const CartEntry = observer(({entry}) => (
   </div>
 ))
 
-function updateEntryQuantity(e) {
+function updateEntryQuantity (e) {
   this.quantity = parseInt(e.target.value, 10)
 }
 

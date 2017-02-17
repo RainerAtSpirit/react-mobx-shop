@@ -1,9 +1,8 @@
-import * as fs from "fs"
-import { when } from "mobx"
+import * as fs from 'fs'
 import BookStore from './BookStore'
 import CartStore from './CartStore'
 
-const bookFetcher = () => Promise.resolve(JSON.parse(fs.readFileSync("./public/books.json")))
+const bookFetcher = () => Promise.resolve(JSON.parse(fs.readFileSync('./public/books.json')))
 
 it('cart store can add new entries', () => {
   const bookStore = new BookStore(bookFetcher)

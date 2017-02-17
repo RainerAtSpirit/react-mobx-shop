@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom'
 import App from './App'
 import { Provider } from 'mobx-react'
 
-import BookStore from "../stores/BookStore"
-import CartStore from "../stores/CartStore"
+import BookStore from '../stores/BookStore'
+import CartStore from '../stores/CartStore'
 
 it('renders without crashing', () => {
   const bookStore = new BookStore()

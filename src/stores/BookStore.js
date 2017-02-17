@@ -1,57 +1,57 @@
-import { observable, computed, action } from "mobx"
-import { serializable, identifier, update, deserialize } from "serializr"
+import { observable, computed, action } from 'mobx'
+import { serializable, identifier, update, deserialize } from 'serializr'
 
 class Book {
-    @serializable(identifier()) id
-    @serializable @observable name
-    @serializable @observable author
-    @serializable @observable price
-    @observable isAvailable = true
+  @serializable(identifier()) id
+  @serializable @observable name
+  @serializable @observable author
+  @serializable @observable price
+  @observable isAvailable = true
 }
 
 export default class BookStore {
-    @observable isLoading = true
-    books = observable.map()
-    fetch
+  @observable isLoading = true
+  books = observable.map()
+  fetch
 
-    constructor(fetch) {
-        this.fetch = fetch;
-        setInterval(this.loadBooks, 5000)
-    }
+  constructor (fetch) {
+    this.fetch = fetch
+    setInterval(this.loadBooks, 5000)
+  }
 
-    @computed get sortedAvailableBooks() {
-        return this.books.values()
-            .filter(b => b.isAvailable)
-            .sort((a, b) =>
-                a.name > b.name
-                    ? 1
-                    : a.name === b.name
-                        ? 0
-                        : -1
-            )
-    }
+  @computed get sortedAvailableBooks () {
+    return this.books.values()
+      .filter(b => b.isAvailable)
+      .sort((a, b) =>
+        a.name > b.name
+          ? 1
+          : a.name === b.name
+            ? 0
+            : -1
+      )
+  }
 
-    @action.bound loadBooks() {
-        this.fetch("/books.json")
-            .then(json => {
-                this.updateBooks(json)
-                this.isLoading = false
-            })
-            .catch(err => {
-                console.error("Failed to load books ", err)
-            })
-    }
+  @action.bound loadBooks () {
+    this.fetch('/books.json')
+      .then(json => {
+        this.updateBooks(json)
+        this.isLoading = false
+      })
+      .catch(err => {
+        console.error('Failed to load books ', err)
+      })
+  }
 
-    @action updateBooks(json) {
-        this.books.values().forEach(book => book.isAvailable = false);
-        json.forEach(bookJson => {
-            if (this.books.has(bookJson.id)) {
-                const book = this.books.get(bookJson.id);
-                book.isAvailable = true;
-                update(book, bookJson);
-            } else {
-                this.books.set(bookJson.id, deserialize(Book, bookJson))
-            }
-        });
-    }
+  @action updateBooks (json) {
+    this.books.values().forEach(book => book.isAvailable = false)
+    json.forEach(bookJson => {
+      if (this.books.has(bookJson.id)) {
+        const book = this.books.get(bookJson.id)
+        book.isAvailable = true
+        update(book, bookJson)
+      } else {
+        this.books.set(bookJson.id, deserialize(Book, bookJson))
+      }
+    })
+  }
 }

@@ -1,10 +1,10 @@
 import React from 'react'
 import { observer, inject } from 'mobx-react'
 
-const Books = inject("bookStore")(observer(({bookStore, openBookPage}) => (
-  <section className="Page-books">
+const Books = inject('bookStore')(observer(({bookStore, openBookPage}) => (
+  <section className='Page-books'>
     <h1>Available books</h1>
-    {bookStore.isLoading && "Loading..."}
+    {bookStore.isLoading && 'Loading...'}
     {!bookStore.isLoading &&
       <ol>
         {bookStore.sortedAvailableBooks.map(book =>
