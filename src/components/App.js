@@ -2,22 +2,22 @@ import React, { Component } from 'react'
 import logo from '../logo.svg'
 import './App.css'
 
-import Books from "./Books"
-import BookDetails from "./BookDetails"
-import Cart from "./Cart"
+import Books from './Books'
+import BookDetails from './BookDetails'
+import Cart from './Cart'
 
 class App extends Component {
-  constructor(p, x) {
+  constructor (p, x) {
     super(p, x)
     this.state = {
-      page: "books",
+      page: 'books',
       selectedBook: null
     }
   }
 
-  render() {
+  render () {
     return (
-      <div className="App">
+      <div className='App'>
         <AppHeader />
         <AppMenu>
           <AppMenuItem onClick={this.openBooksPage}>Available books</AppMenuItem>
@@ -28,58 +28,67 @@ class App extends Component {
     )
   }
 
-  renderPage() {
-    switch(this.state.page) {
-      case "books":
-        return <Books openBookPage={this.openBookPage} />
-      case "book":
+  renderPage () {
+    switch (this.state.page) {
+      case 'books':
+        return <Books bookStore={this.props.bookStore} openBookPage={this.openBookPage} />
+      case 'book':
         return <BookDetails book={this.state.selectedBook} />
-      case "cart":
+      case 'cart':
         return <Cart />
       default:
-        return "Sry, not found"
+        return 'Sry, not found'
     }
   }
 
   openBooksPage = () => {
     this.setState({
-      page: "books",
+      page: 'books',
       selectedBook: null
     })
   }
 
   openBookPage = (book) => {
     this.setState({
-      page: "book",
+      page: 'book',
       selectedBook: book
     })
   }
 
   openCartPage = () => {
     this.setState({
-      page: "cart",
+      page: 'cart',
       selectedBook: null
     })
   }
 }
 
 const AppHeader = () => (
-  <div className="App-header">
-    <img src={logo} className="App-logo" alt="logo" />
+  <div className='App-header'>
+    <img src={logo} className='App-logo' alt='logo' />
     <h2>Welcome to the React MobX Book shop!</h2>
   </div>
 )
 
 const AppMenu = ({children}) => (
-  <ul className="App-menu">
+  <ul className='App-menu'>
     {children}
   </ul>
 )
 
+AppMenu.propTypes = {
+  children: React.PropTypes.any
+}
+
 const AppMenuItem = ({onClick, children}) => (
-    <li>
-      <a onClick={onClick}>{children}</a>
-    </li>
+  <li>
+    <a onClick={onClick}>{children}</a>
+  </li>
 )
+
+AppMenuItem.propTypes = {
+  onClick: React.PropTypes.func,
+  children: React.PropTypes.any
+}
 
 export default App
